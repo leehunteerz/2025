@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEHUNTERZ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background-color: #2a2a2a;
+      position: relative;
+    }
+
+    .logo {
+      position: absolute;
+      left: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-links a.active, .nav-links a:hover {
+      background-color: #6b48ff;
+    }
+
+    /* Icons Section */
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px 0;
+      background-color: #2a2a2a;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      background-color: #444;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .search-bar input {
+      width: 50%;
+      padding: 10px;
+      border-radius: 20px;
+      border: 2px solid #6b48ff;
+      background-color: #333;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .search-bar input::placeholder {
+      color: #888;
+    }
+
+    /* Filter Buttons */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      background-color: #444;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background-color: #6b48ff;
+    }
+
+    /* Content Grid */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #6b48ff;
+      height: 200px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">LEHUNTERZ</div>
+    <div class="nav-links">
+      <a href="#" class="active">HOME</a>
+      <a href="#">PROJECTS</a>
+      <a href="#">CONTATO</a>
+      <a href="#">NEW</a>
+      <a href="#">MOBILE</a>
+    </div>
+  </nav>
+
+  <!-- Icons Section -->
+  <div class="icons">
+    <div class="icon">🖼️</div>
+    <div class="icon">🎥</div>
+    <div class="icon">💻</div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" placeholder="SEARCH...">
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="filters">
+    <button class="filter-btn active">Project</button>
+    <button class="filter-btn">Photos</button>
+    <button class="filter-btn">Videos</button>
+    <button class="filter-btn">Web</button>
+    <button class="filter-btn">Mobile</button>
+    <button class="filter-btn">Outro</button>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="content-grid" id="content-grid">
+    <!-- Cards will be dynamically added here -->
+  </div>
+
+  <script>
+    // Sample data for cards (replace with actual image URLs)
+    const cardsData = [
+      { img: "https://via.placeholder.com/250x200?text=Image+1" },
+      { img: "https://via.placeholder.com/250x200?text=Image+2" },
+      { img: "https://via.placeholder.com/250x200?text=Image+3" },
+      { img: "https://via.placeholder.com/250x200?text=Image+4" },
+      { img: "https://via.placeholder.com/250x200?text=Image+5" },
+      { img: "https://via.placeholder.com/250x200?text=Image+6" },
+    ];
+
+    // Function to render cards
+    function renderCards() {
+      const grid = document.getElementById("content-grid");
+      grid.innerHTML = "";
+      cardsData.forEach(card => {
+        const cardElement = document.createElement("div");
+        cardElement.classList.add("card");
+        cardElement.innerHTML = `
+          <img src="${card.img}" alt="Content">
+          <div class="overlay">
+            <div class="overlay-icon">✨</div>
+          </div>
+        `;
+        grid.appendChild(cardElement);
+      });
+    }
+
+    // Initial render
+    renderCards();
+
+    // Filter button functionality
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        // Add filtering logic here if needed
+        renderCards();
+      });
+    });
+  </script>
+</body>
+</html>
